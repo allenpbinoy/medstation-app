@@ -1,9 +1,115 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:med_station/models/productDetails.dart';
 import 'package:med_station/widgets/widgets.dart';
+import 'package:http/http.dart' as http;
 
-class ProductScreen extends StatelessWidget {
-  const ProductScreen({Key key}) : super(key: key);
+class ProductScreen extends StatefulWidget {
+  final String id;
+
+  ProductScreen({Key? key, required this.id}) : super(key: key);
+
+  @override
+  State<ProductScreen> createState() => _ProductScreenState();
+}
+
+class _ProductScreenState extends State<ProductScreen> {
+  @override
+  void initState() {
+    super.initState();
+    check();
+  }
+
+  var productname = "productname";
+  var qty = "qty";
+  var price = "price";
+  var status = "status";
+  var shopname = "shopname";
+  var shopaddress = "shoppaddress";
+  var phonenumber = "phonenumber";
+  var composition = "comp";
+  var img =
+      " https://firebasestorage.googleapis.com/v0/b/mullonkalhardwares-a8472.appspot.com/o/placeholder%2Fplaceholder-image.png?alt=media&token=e9738ca3-c35e-4343-bf1a-d80790a56f90";
+  List<productDetails> plist = [];
+  Future<void> check() async {
+    final storage = new FlutterSecureStorage();
+    var number = await storage.read(key: 'username');
+    var numfinal = number?.substring(1);
+
+    print(number);
+    print(numfinal);
+    print("cutfufuggigiigiu");
+    var map = new Map<String, dynamic>();
+    map['id'] = widget.id;
+    print(widget.id);
+    // map['password'] = 'password';
+    var token2 =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFmNmI4ZjdiMTk5ODhjM2MwZDdkOGIiLCJpYXQiOjE2NTU2NjM1MDMsImV4cCI6MTY4MTU4MzUwM30.XFCZc-w2pZURhLNiozjjEYq0rVuykttxmoZ9TjO32j8";
+
+    final response = await http.post(
+      Uri.parse('https://projectmedico.herokuapp.com/products/getProduct'),
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer $token2',
+      },
+      encoding: Encoding.getByName("utf-8"),
+      body: jsonEncode(map),
+    );
+
+    print(response.body);
+    var body = response.body;
+    var data = jsonDecode(response.body) as List;
+    print(data);
+    /* var sname = "jj";
+    sname = data['username']*/
+
+    // ignore: unused_local_variable
+    var index = 0;
+    var snumber = data[index].toString();
+
+    /*vendorModel vendormodel = vendorModel.fromJson(data);
+    print(vendormodel.shopName);*/
+
+    // Create storage
+
+    // Write value
+
+    var rb = response.body;
+    var list = json.decode(rb) as List;
+    plist = list.map((e) => productDetails.fromJson(e)).toList();
+
+    print(list);
+
+    setState(() {
+      plist = plist;
+    });
+
+    var pname = plist[index].productname;
+    //print(sname);
+    var qty1 = plist[index].qty;
+    var price1 = plist[index].price;
+    var composition = plist[index].composition;
+    var saddress = plist[index].sAddress;
+    var shopname1 = plist[index].shopname;
+    var composit = plist[index].composition;
+    var status1 = plist[index].status;
+    var pn = plist[index].whatsappNumber;
+    var im = plist[index].imgUrl;
+    setState(() {
+      productname = pname!;
+      qty = qty1!;
+      price = price1!;
+      status = status1!;
+      shopname = shopname1!;
+      shopaddress = saddress!;
+      phonenumber = pn!;
+      composition = composit!;
+      img = im!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +140,7 @@ class ProductScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        "Dolo 650 Tablet",
+                        img,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 24),
                       ),
@@ -42,14 +148,14 @@ class ProductScreen extends StatelessWidget {
                         height: 5,
                       ),
                       Text(
-                        "Strip of 15 pcs",
+                        qty,
                         style: TextStyle(color: Colors.grey, fontSize: 16),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Text(
-                        "MRP ₹30.0",
+                        price,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -62,14 +168,14 @@ class ProductScreen extends StatelessWidget {
                         height: 25,
                       ),
                       Text(
-                        "Composition",
+                        composition,
                         style: TextStyle(color: Colors.grey, fontSize: 12),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
-                        "Paracetamol (650mg)",
+                        composition,
                         style: TextStyle(color: Colors.grey[700], fontSize: 14),
                       ),
                     ],
@@ -95,7 +201,7 @@ class ProductScreen extends StatelessWidget {
                         height: 15,
                       ),
                       Text(
-                        "Available",
+                        status,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 22,
@@ -112,7 +218,7 @@ class ProductScreen extends StatelessWidget {
                             size: 18,
                           ),
                           Text(
-                            "New English Medicals, Kothamangalam",
+                            shopname + " ," + shopaddress,
                             style: TextStyle(color: Colors.grey, fontSize: 14),
                           ),
                         ],
@@ -139,7 +245,7 @@ class ProductScreen extends StatelessWidget {
                             size: 18,
                           ),
                           Text(
-                            " +91 9061950370",
+                            phonenumber,
                             style: TextStyle(
                                 color: Colors.grey[800], fontSize: 14),
                           ),
@@ -156,7 +262,7 @@ class ProductScreen extends StatelessWidget {
                             size: 18,
                           ),
                           Text(
-                            " +91 9061950370",
+                            phonenumber,
                             style: TextStyle(
                                 color: Colors.grey[800], fontSize: 14),
                           ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:med_station/widgets/widgets.dart';
 
 class ShopScreen extends StatelessWidget {
-  const ShopScreen({Key key}) : super(key: key);
+  const ShopScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

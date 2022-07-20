@@ -20,7 +20,7 @@ class AppBar1 extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
 
-  AppBar1({Key key})
+  AppBar1({Key? key})
       : preferredSize = const Size.fromHeight(56.0),
         super(key: key);
   @override
@@ -47,7 +47,7 @@ class AppBar2 extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
 
-  AppBar2({Key key})
+  AppBar2({Key? key})
       : preferredSize = const Size.fromHeight(56.0),
         super(key: key);
   @override
@@ -77,7 +77,7 @@ class AppBar3 extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
 
-  AppBar3({Key key})
+  AppBar3({Key? key})
       : preferredSize = const Size.fromHeight(0.0),
         super(key: key);
   @override
@@ -108,7 +108,7 @@ class AppBar4 extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
 
-  AppBar4({Key key})
+  AppBar4({Key? key})
       : preferredSize = const Size.fromHeight(56.0),
         super(key: key);
   @override
@@ -133,7 +133,7 @@ class AppBar6 extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
 
-  AppBar6({Key key})
+  AppBar6({Key? key})
       : preferredSize = const Size.fromHeight(10.0),
         super(key: key);
   @override
@@ -155,7 +155,7 @@ class AppBar7 extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
 
-  AppBar7({Key key})
+  AppBar7({Key? key})
       : preferredSize = const Size.fromHeight(0.0),
         super(key: key);
   @override

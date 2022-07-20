@@ -6,7 +6,7 @@ import 'package:med_station/profileScreen.dart';
 import 'package:med_station/widgets/widgets.dart';
 
 class TabScreen extends StatefulWidget {
-  const TabScreen({Key key}) : super(key: key);
+  const TabScreen({Key? key}) : super(key: key);
 
   @override
   _TabScreenState createState() => _TabScreenState();

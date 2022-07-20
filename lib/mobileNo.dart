@@ -1,9 +1,74 @@
-import 'package:flutter/material.dart';
-import 'package:med_station/otpScreen.dart';
-import 'package:med_station/widgets/widgets.dart';
+import 'dart:convert';
 
-class MobileNo extends StatelessWidget {
-  const MobileNo({Key key}) : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:med_station/otpScreen.dart';
+import 'package:med_station/tabScreen.dart';
+import 'package:med_station/widgets/widgets.dart';
+import 'package:http/http.dart' as http;
+
+class MobileNo extends StatefulWidget {
+  const MobileNo({Key? key}) : super(key: key);
+
+  @override
+  _MobileNoState createState() => _MobileNoState();
+}
+
+class _MobileNoState extends State<MobileNo> {
+  TextEditingController noController = new TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    check();
+  }
+
+  //TextEditingController noController = new TextEditingController();
+
+  Future<void> check() async {
+    final storage = new FlutterSecureStorage();
+    var number = await storage.read(key: 'username');
+    var numfinal = number?.substring(1);
+
+    print(number);
+    print(numfinal);
+    print("cutfufuggigiigiu");
+    var map = new Map<String, dynamic>();
+    map['username'] = numfinal;
+    // map['password'] = 'password';
+    var token2 =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFmNmI4ZjdiMTk5ODhjM2MwZDdkOGIiLCJpYXQiOjE2NTU2NjM1MDMsImV4cCI6MTY4MTU4MzUwM30.XFCZc-w2pZURhLNiozjjEYq0rVuykttxmoZ9TjO32j8";
+
+    final response = await http.post(
+      Uri.parse('https://projectmedico.herokuapp.com/customers/getCustomer'),
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer $token2',
+      },
+      encoding: Encoding.getByName("utf-8"),
+      body: jsonEncode(map),
+    );
+
+    print(response.body);
+    var body = response.body;
+  }
+
+  Future<void> send() async {
+    // This will be sent as form data in the post requst
+    String number = "+91" + noController.text;
+    print(number);
+    print("cutfufuggigiigiu");
+    var map = new Map<String, dynamic>();
+    map['phoneNumber'] = number;
+    // map['password'] = 'password';
+
+    final response = await http.post(
+      Uri.parse('https://projectmedico.herokuapp.com/users/login'),
+      body: map,
+    );
+
+    print(response.body);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +117,7 @@ class MobileNo extends StatelessWidget {
                             Container(
                               height: 50,
                               child: TextField(
-                                //     controller: emailController,
+                                controller: noController,
                                 keyboardType: TextInputType.number,
                                 decoration: new InputDecoration(
                                     isDense: true,
@@ -101,11 +166,11 @@ class MobileNo extends StatelessWidget {
                               height: 45,
                               child: TextButton(
                                 onPressed: () {
+                                  send();
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            const OtpScreen()),
+                                        builder: (context) => OtpScreen()),
                                   );
                                 },
                                 child: Padding(

@@ -6,7 +6,7 @@ import 'package:med_station/widgets/home.dart';
 import 'package:med_station/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

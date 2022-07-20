@@ -3,7 +3,7 @@ import 'package:med_station/shopScreen.dart';
 import 'package:med_station/widgets/widgets.dart';
 
 class OrderScreen extends StatelessWidget {
-  const OrderScreen({Key key}) : super(key: key);
+  const OrderScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +135,7 @@ class OrderScreen extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ShopScreen()),
+                                                  ShopScreen()),
                                         );
                                       },
                                       child: Row(
@@ -195,7 +195,7 @@ class OrderScreen extends StatelessWidget {
                                     style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all<Color>(
-                                                Colors.red[400])),
+                                                Colors.red[400]!)),
                                   )
                                 ],
                               ),
@@ -260,7 +260,7 @@ class OrderScreen extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ShopScreen()),
+                                                  ShopScreen()),
                                         );
                                       },
                                       child: Row(
@@ -320,7 +320,7 @@ class OrderScreen extends StatelessWidget {
                                     style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all<Color>(
-                                                Colors.red[400])),
+                                                Colors.red[400]!)),
                                   )
                                 ],
                               ),
@@ -385,7 +385,7 @@ class OrderScreen extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ShopScreen()),
+                                                  ShopScreen()),
                                         );
                                       },
                                       child: Row(
@@ -445,7 +445,7 @@ class OrderScreen extends StatelessWidget {
                                     style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all<Color>(
-                                                Colors.red[400])),
+                                                Colors.red[400]!)),
                                   )
                                 ],
                               ),
@@ -510,7 +510,7 @@ class OrderScreen extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ShopScreen()),
+                                                  ShopScreen()),
                                         );
                                       },
                                       child: Row(
@@ -570,7 +570,7 @@ class OrderScreen extends StatelessWidget {
                                     style: ButtonStyle(
                                         backgroundColor:
                                             MaterialStateProperty.all<Color>(
-                                                Colors.red[400])),
+                                                Colors.red[400]!)),
                                   )
                                 ],
                               ),

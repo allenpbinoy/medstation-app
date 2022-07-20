@@ -1,9 +1,64 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:med_station/tabScreen.dart';
 import 'package:med_station/widgets/widgets.dart';
+import 'package:http/http.dart' as http;
 
-class CreateUserScreen extends StatelessWidget {
-  const CreateUserScreen({Key key}) : super(key: key);
+class CreateUserScreen extends StatefulWidget {
+  const CreateUserScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CreateUserScreen> createState() => _CreateUserScreenState();
+}
+
+class _CreateUserScreenState extends State<CreateUserScreen> {
+  TextEditingController nameController = new TextEditingController();
+  TextEditingController watController = new TextEditingController();
+  TextEditingController addrController = new TextEditingController();
+  final storage = new FlutterSecureStorage();
+
+  Future<void> send() async {
+    var cname = nameController.text;
+    var cAddress = addrController.text;
+    var wnumber = watController.text;
+    //var sLocation = await storage.read(key: 'location');
+    // This will be sent as form data in the post requst
+    // String number = "+91" + noController.text;
+    // print(number);
+    var number = await storage.read(key: 'username');
+    print("cutfufuggigiigiu");
+    var map = new Map<String, dynamic>();
+    map['username'] = number;
+    map['customername'] = cname;
+    map['cAddress'] = cAddress;
+    map['phoneNumber'] = number;
+
+    // map['password'] = 'password';
+    var token = await storage.read(key: "token");
+    var token2 =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFmNmI4ZjdiMTk5ODhjM2MwZDdkOGIiLCJpYXQiOjE2NTU2NjM1MDMsImV4cCI6MTY4MTU4MzUwM30.XFCZc-w2pZURhLNiozjjEYq0rVuykttxmoZ9TjO32j8";
+    final response = await http.post(
+      Uri.parse('https://projectmedico.herokuapp.com/customers/createCustomer'),
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer $token2',
+      },
+      encoding: Encoding.getByName("utf-8"),
+      body: jsonEncode(map),
+    );
+
+    print(response.body);
+    var body = response.body;
+    if (body != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => TabScreen()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +107,7 @@ class CreateUserScreen extends StatelessWidget {
                   Container(
                     height: 50,
                     child: TextField(
-                      //     controller: emailController,
+                      controller: nameController,
                       keyboardType: TextInputType.number,
                       decoration: new InputDecoration(
                           isDense: true,
@@ -89,7 +144,7 @@ class CreateUserScreen extends StatelessWidget {
                   Container(
                     height: 50,
                     child: TextField(
-                      //     controller: emailController,
+                      controller: watController,
                       keyboardType: TextInputType.number,
                       decoration: new InputDecoration(
                           isDense: true,
@@ -130,8 +185,7 @@ class CreateUserScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5)),
                     height: 150,
                     child: TextField(
-                      //     controller: emailController,
-
+                      controller: addrController,
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
                       decoration: new InputDecoration(
@@ -172,7 +226,9 @@ class CreateUserScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 45,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    send();
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
