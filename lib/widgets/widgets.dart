@@ -171,3 +171,143 @@ class AppBar7 extends StatelessWidget with PreferredSizeWidget {
     );
   }
 }
+
+//AppBar8
+class AppBar8 extends StatelessWidget with PreferredSizeWidget {
+  @override
+  final Size preferredSize;
+
+  AppBar8({Key? key})
+      : preferredSize = const Size.fromHeight(56.0),
+        super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+        brightness: Brightness.dark,
+        backgroundColor: HexColor("#003580", 1),
+        elevation: 1,
+        title: Text("Upload prescription"),
+        leading: Icon(
+          Icons.ac_unit,
+          color: Colors.transparent,
+          size: .1,
+        ),
+        titleSpacing: 60);
+  }
+}
+
+//AppBar9
+class AppBar9 extends StatelessWidget with PreferredSizeWidget {
+  @override
+  final Size preferredSize;
+
+  AppBar9({Key? key})
+      : preferredSize = const Size.fromHeight(56.0),
+        super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+        brightness: Brightness.dark,
+        backgroundColor: HexColor("#003580", 1),
+        elevation: 1,
+        title: Text("Prescription Orders"),
+        leading: Icon(
+          Icons.ac_unit,
+          color: Colors.transparent,
+          size: .1,
+        ),
+        titleSpacing: 60);
+  }
+}
+
+class AppBar10 extends StatelessWidget with PreferredSizeWidget {
+  @override
+  final Size preferredSize;
+
+  AppBar10({Key? key})
+      : preferredSize = const Size.fromHeight(56.0),
+        super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+        brightness: Brightness.dark,
+        backgroundColor: HexColor("#003580", 1),
+        elevation: 1,
+        title: Text("Ayurvedha"),
+        leading: Icon(
+          Icons.ac_unit,
+          color: Colors.transparent,
+          size: .1,
+        ),
+        titleSpacing: 60);
+  }
+}
+
+class AppBar11 extends StatelessWidget with PreferredSizeWidget {
+  @override
+  final Size preferredSize;
+
+  AppBar11({Key? key})
+      : preferredSize = const Size.fromHeight(56.0),
+        super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+        brightness: Brightness.dark,
+        backgroundColor: HexColor("#003580", 1),
+        elevation: 1,
+        title: Text("Homeopathy"),
+        leading: Icon(
+          Icons.ac_unit,
+          color: Colors.transparent,
+          size: .1,
+        ),
+        titleSpacing: 60);
+  }
+}
+
+class AppBar12 extends StatelessWidget with PreferredSizeWidget {
+  @override
+  final Size preferredSize;
+
+  AppBar12({Key? key})
+      : preferredSize = const Size.fromHeight(56.0),
+        super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+        brightness: Brightness.dark,
+        backgroundColor: HexColor("#003580", 1),
+        elevation: 1,
+        title: Text("Skin Care"),
+        leading: Icon(
+          Icons.ac_unit,
+          color: Colors.transparent,
+          size: .1,
+        ),
+        titleSpacing: 60);
+  }
+}
+
+class AppBar13 extends StatelessWidget with PreferredSizeWidget {
+  @override
+  final Size preferredSize;
+
+  AppBar13({Key? key})
+      : preferredSize = const Size.fromHeight(56.0),
+        super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+        brightness: Brightness.dark,
+        backgroundColor: HexColor("#003580", 1),
+        elevation: 1,
+        title: Text("Nutritional Drinks"),
+        leading: Icon(
+          Icons.ac_unit,
+          color: Colors.transparent,
+          size: .1,
+        ),
+        titleSpacing: 60);
+  }
+}

@@ -85,16 +85,16 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Future<void> order(
-      String productname,
-      String qty,
-      String price,
-      String composition,
-      String category,
-      String imgUrl,
-      String shopname,
-      String Saddress,
-      String Whatsapp,
-      String status) async {
+    String productname,
+    String qty,
+    String price,
+    String composition,
+    String category,
+    String imgUrl,
+    String shopname,
+    String Saddress,
+    String Whatsapp,
+  ) async {
     final storage = new FlutterSecureStorage();
     var number = await storage.read(key: 'username');
     var numfinal = number?.substring(1);
@@ -115,7 +115,7 @@ class _SearchScreenState extends State<SearchScreen> {
     map['sAddress'] = Saddress;
     map['whatsappNumber'] = Whatsapp;
     map['orderType'] = "normal";
-    map['status'] = "commen";
+    map['status'] = "pending";
     // map['password'] = 'password';
     var token2 =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFmNmI4ZjdiMTk5ODhjM2MwZDdkOGIiLCJpYXQiOjE2NTU2NjM1MDMsImV4cCI6MTY4MTU4MzUwM30.XFCZc-w2pZURhLNiozjjEYq0rVuykttxmoZ9TjO32j8";
@@ -132,11 +132,11 @@ class _SearchScreenState extends State<SearchScreen> {
 
     print(response.body);
     var body = response.body;
-    var data = jsonDecode(response.body) as List;
-    print(data);
+    /*var data = jsonDecode(response.body) as List;
+    print(data);*/
 
     var index = 0;
-    var snumber = data[index].toString();
+    // var snumber = data[index].toString();
 
     var rb = response.body;
     var list = json.decode(rb) as List;
@@ -453,40 +453,48 @@ class _SearchScreenState extends State<SearchScreen> {
                                                     color: Colors.green),
                                               ),
                                               TextButton(
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(HexColor(
+                                                                  "#003580",
+                                                                  1))),
                                                   onPressed: () async {
                                                     order(
-                                                        plist[index]
-                                                            .productname
-                                                            .toString(),
-                                                        plist[index]
-                                                            .qty
-                                                            .toString(),
-                                                        plist[index]
-                                                            .price
-                                                            .toString(),
-                                                        plist[index]
-                                                            .productname
-                                                            .toString(),
-                                                        plist[index]
-                                                            .composition
-                                                            .toString(),
-                                                        plist[index]
-                                                            .category
-                                                            .toString(),
-                                                        plist[index]
-                                                            .imgUrl
-                                                            .toString(),
-                                                        plist[index]
-                                                            .shopname
-                                                            .toString(),
-                                                        plist[index]
-                                                            .sAddress
-                                                            .toString(),
-                                                        plist[index]
-                                                            .whatsappNumber
-                                                            .toString());
+                                                      plist[index]
+                                                          .productname
+                                                          .toString(),
+                                                      plist[index]
+                                                          .qty
+                                                          .toString(),
+                                                      plist[index]
+                                                          .price
+                                                          .toString(),
+                                                      plist[index]
+                                                          .composition
+                                                          .toString(),
+                                                      plist[index]
+                                                          .category
+                                                          .toString(),
+                                                      plist[index]
+                                                          .imgUrl
+                                                          .toString(),
+                                                      plist[index]
+                                                          .shopname
+                                                          .toString(),
+                                                      plist[index]
+                                                          .sAddress
+                                                          .toString(),
+                                                      plist[index]
+                                                          .whatsappNumber
+                                                          .toString(),
+                                                    );
                                                   },
-                                                  child: Text("Order"))
+                                                  child: Text(
+                                                    "Order",
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ))
                                             ],
                                           ),
                                         )

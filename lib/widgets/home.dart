@@ -1,5 +1,9 @@
 import 'package:carousel_images/carousel_images.dart';
 import 'package:flutter/material.dart';
+import 'package:med_station/categories/ayurvedha.dart';
+import 'package:med_station/categories/homeopathy.dart';
+import 'package:med_station/categories/nutritional.dart';
+import 'package:med_station/categories/skincare.dart';
 import 'package:med_station/widgets/widgets.dart';
 
 import '../searchScreen.dart';
@@ -130,12 +134,18 @@ Container homeItem(BuildContext context) {
         height: 10,
         color: Colors.grey[200],
       ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          height: 120,
-          child: Image.network(
-              "https://newassets.apollo247.com/pub/media/magestore/bannerslider/images/c/o/cold_n_cough_offers_web.jpg"),
+      new GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Ayurvedha()));
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: 120,
+            child: Image.network(
+                "https://newassets.apollo247.com/pub/media/magestore/bannerslider/images/c/o/cold_n_cough_offers_web.jpg"),
+          ),
         ),
       ),
       Container(
@@ -150,81 +160,95 @@ Container homeItem(BuildContext context) {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 children: [
-                  Container(
-                    margin: EdgeInsets.all(2),
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border:
-                                  Border.all(color: Colors.grey, width: .3)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Image.network(
-                                    "https://onemg.gumlet.io/image/upload/w_150,h_150,c…_auto,f_auto/v1624525320/j7ruar88gacbzksuadjn.png"),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                /*Container(
-                              height: .5,
-                              color: Colors.grey,
-                              width: 120,
-                            ),*/
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Text(
-                                    "Homeopathy",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                  new GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Homeopathy()),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(2),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border:
+                                    Border.all(color: Colors.grey, width: .3)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Image.network(
+                                      "https://onemg.gumlet.io/image/upload/w_150,h_150,c…_auto,f_auto/v1624525320/j7ruar88gacbzksuadjn.png"),
+                                  SizedBox(
+                                    height: 5,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                )
-                              ],
-                            ),
-                          )),
+                                  /*Container(
+                                height: .5,
+                                color: Colors.grey,
+                                width: 120,
+                              ),*/
+                                  Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      "Homeopathy",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  )
+                                ],
+                              ),
+                            )),
+                      ),
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border(left: BorderSide(width: .1))),
-                    margin: EdgeInsets.all(2),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border:
-                                  Border.all(color: Colors.grey, width: .3)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Image.network(
-                                    "https://onemg.gumlet.io/image/upload/w_150,h_150,c…_auto,f_auto/v1649141994/x2z8u1osqutmxvx56hlw.png"),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Text(
-                                    "Ayurvedha",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                  new GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Ayurvedha()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border(left: BorderSide(width: .1))),
+                      margin: EdgeInsets.all(2),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border:
+                                    Border.all(color: Colors.grey, width: .3)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Image.network(
+                                      "https://onemg.gumlet.io/image/upload/w_150,h_150,c…_auto,f_auto/v1649141994/x2z8u1osqutmxvx56hlw.png"),
+                                  SizedBox(
+                                    height: 5,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                )
-                              ],
-                            ),
-                          )),
+                                  Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      "Ayurvedha",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  )
+                                ],
+                              ),
+                            )),
+                      ),
                     ),
                   )
                 ],
@@ -242,30 +266,81 @@ Container homeItem(BuildContext context) {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 children: [
+                  new GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => SkinCare()));
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(2),
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border:
+                                    Border.all(color: Colors.grey, width: .3)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(1.0),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Column(
+                                  children: [
+                                    Image.network(
+                                        "https://onemg.gumlet.io/image/upload/w_150,h_150,c…_auto,f_auto/v1624525251/bkhusfgfiu9qedowph2i.png"),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Text(
+                                        "Skin Care",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )),
+                      ),
+                    ),
+                  ),
                   Container(
-                    margin: EdgeInsets.all(2),
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        border: Border(left: BorderSide(width: .1))),
                     child: Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border:
-                                  Border.all(color: Colors.grey, width: .3)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(1.0),
+                      padding: const EdgeInsets.all(8.0),
+                      child: new GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Nutritonal()));
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border:
+                                    Border.all(color: Colors.grey, width: .3)),
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Column(
                                 children: [
                                   Image.network(
-                                      "https://onemg.gumlet.io/image/upload/w_150,h_150,c…_auto,f_auto/v1624525251/bkhusfgfiu9qedowph2i.png"),
+                                      "https://onemg.gumlet.io/image/upload/w_150,h_150,c…_auto,f_auto/v1642586423/uq1gwxslqqrxxwv6zi6j.jpg"),
                                   SizedBox(
                                     height: 5,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
-                                      "Skin Care",
+                                      "Nutritional Drinks",
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold),
@@ -276,45 +351,8 @@ Container homeItem(BuildContext context) {
                                   )
                                 ],
                               ),
-                            ),
-                          )),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        border: Border(left: BorderSide(width: .1))),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border:
-                                  Border.all(color: Colors.grey, width: .3)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Column(
-                              children: [
-                                Image.network(
-                                    "https://onemg.gumlet.io/image/upload/w_150,h_150,c…_auto,f_auto/v1642586423/uq1gwxslqqrxxwv6zi6j.jpg"),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Text(
-                                    "Nutritional Drinks",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                )
-                              ],
-                            ),
-                          )),
+                            )),
+                      ),
                     ),
                   )
                 ],

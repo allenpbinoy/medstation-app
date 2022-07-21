@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:med_station/categories/ayurvedha.dart';
+import 'package:med_station/categories/homeopathy.dart';
 import 'package:med_station/searchScreen.dart';
 import 'package:med_station/widgets/home.dart';
 import 'package:med_station/widgets/widgets.dart';
@@ -88,78 +90,107 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(
                           width: 10,
                         ),
-                        Container(
-                          child: Center(
-                              child: Container(
-                            margin: const EdgeInsets.all(15.0),
-                            child: Text(
-                              "Ayurvedha",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
-                            ),
-                          )),
-                          decoration: BoxDecoration(
-                              color: HexColor("#003580", 1),
-                              borderRadius: BorderRadius.circular(25),
-                              border:
-                                  Border.all(color: Colors.white, width: 1)),
+                        new GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Ayurvedha()),
+                            );
+                          },
+                          child: Container(
+                            child: Center(
+                                child: Container(
+                              margin: const EdgeInsets.all(15.0),
+                              child: Text(
+                                "Ayurvedha",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              ),
+                            )),
+                            decoration: BoxDecoration(
+                                color: HexColor("#003580", 1),
+                                borderRadius: BorderRadius.circular(25),
+                                border:
+                                    Border.all(color: Colors.white, width: 1)),
+                          ),
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Container(
-                          child: Center(
-                              child: Container(
-                            margin: const EdgeInsets.all(15.0),
-                            child: Text(
-                              "Baby Products",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
-                            ),
-                          )),
-                          decoration: BoxDecoration(
-                              color: HexColor("#003580", 1),
-                              borderRadius: BorderRadius.circular(25),
-                              border:
-                                  Border.all(color: Colors.white, width: 1)),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Homeopathy()),
+                            );
+                          },
+                          child: Container(
+                            child: Center(
+                                child: Container(
+                              margin: const EdgeInsets.all(15.0),
+                              child: Text(
+                                "Homeopathy",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              ),
+                            )),
+                            decoration: BoxDecoration(
+                                color: HexColor("#003580", 1),
+                                borderRadius: BorderRadius.circular(25),
+                                border:
+                                    Border.all(color: Colors.white, width: 1)),
+                          ),
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Container(
-                          child: Center(
-                              child: Container(
-                            margin: const EdgeInsets.all(15.0),
-                            child: Text(
-                              "Ayurvedha",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
-                            ),
-                          )),
-                          decoration: BoxDecoration(
-                              color: HexColor("#003580", 1),
-                              borderRadius: BorderRadius.circular(25),
-                              border:
-                                  Border.all(color: Colors.white, width: 1)),
+                        new GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Ayurvedha()),
+                            );
+                          },
+                          child: Container(
+                            child: Center(
+                                child: Container(
+                              margin: const EdgeInsets.all(15.0),
+                              child: Text(
+                                "SkinCare",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              ),
+                            )),
+                            decoration: BoxDecoration(
+                                color: HexColor("#003580", 1),
+                                borderRadius: BorderRadius.circular(25),
+                                border:
+                                    Border.all(color: Colors.white, width: 1)),
+                          ),
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Container(
-                          child: Center(
-                              child: Container(
-                            margin: const EdgeInsets.all(15.0),
-                            child: Text(
-                              "Baby Products",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
-                            ),
-                          )),
-                          decoration: BoxDecoration(
-                              color: HexColor("#003580", 1),
-                              borderRadius: BorderRadius.circular(25),
-                              border:
-                                  Border.all(color: Colors.white, width: 1)),
+                        new GestureDetector(
+                          child: Container(
+                            child: Center(
+                                child: Container(
+                              margin: const EdgeInsets.all(15.0),
+                              child: Text(
+                                "Nutritinoal Drinks",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              ),
+                            )),
+                            decoration: BoxDecoration(
+                                color: HexColor("#003580", 1),
+                                borderRadius: BorderRadius.circular(25),
+                                border:
+                                    Border.all(color: Colors.white, width: 1)),
+                          ),
                         )
                       ],
                     ),
