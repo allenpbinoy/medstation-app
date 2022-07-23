@@ -18,7 +18,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   List<customerDetails> plist = [];
-  String shopname = "shopname";
+  String shopname = "customername";
   String phonenumber = "+91123456789";
   String address = "Address here";
 
@@ -41,9 +41,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     // map['password'] = 'password';
     var token2 =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFmNmI4ZjdiMTk5ODhjM2MwZDdkOGIiLCJpYXQiOjE2NTU2NjM1MDMsImV4cCI6MTY4MTU4MzUwM30.XFCZc-w2pZURhLNiozjjEYq0rVuykttxmoZ9TjO32j8";
-
+    print(jsonEncode(map));
     final response = await http.post(
-      Uri.parse('https://projectmedico.herokuapp.com/vendor/getVendor'),
+      Uri.parse('https://projectmedico.herokuapp.com/customers/getCustomer'),
       headers: {
         "Content-Type": "application/json",
         'Authorization': 'Bearer $token2',
@@ -54,14 +54,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     print(response.body);
     var body = response.body;
-    var data = jsonDecode(response.body) as List;
-    print(data);
+    //var data = jsonDecode(response.body) as List;
+    //print(data);
     /* var sname = "jj";
     sname = data['username']*/
 
     // ignore: unused_local_variable
     var index = 0;
-    var snumber = data[index].toString();
+    //var snumber = data[index].toString();
 
     /*vendorModel vendormodel = vendorModel.fromJson(data);
     print(vendormodel.shopName);*/
@@ -76,9 +76,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     print(list);
 
-    setState(() {
-      plist = plist;
-    });
+    if (mounted)
+      setState(() {
+        plist = plist;
+      });
 
     var sname = plist[index].customername;
     print(sname);

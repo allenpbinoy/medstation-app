@@ -165,6 +165,7 @@ class _SearchScreenState extends State<SearchScreen> {
     var token2 =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFmNmI4ZjdiMTk5ODhjM2MwZDdkOGIiLCJpYXQiOjE2NTU2NjM1MDMsImV4cCI6MTY4MTU4MzUwM30.XFCZc-w2pZURhLNiozjjEYq0rVuykttxmoZ9TjO32j8";
 
+    print(jsonEncode(map));
     final response = await http.post(
       Uri.parse('https://projectmedico.herokuapp.com/products/search'),
       headers: {

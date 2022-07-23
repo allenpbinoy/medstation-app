@@ -38,7 +38,7 @@ class _OrderScreenState extends State<OrderScreen> {
     // var key1 = keyController.text;
     print("cutfufuggigiigiu");
     var map = new Map<String, dynamic>();
-    map['username'] = numfinal;
+    map['key'] = 'normal';
     // map['password'] = 'password';
     var token2 =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmFmNmI4ZjdiMTk5ODhjM2MwZDdkOGIiLCJpYXQiOjE2NTU2NjM1MDMsImV4cCI6MTY4MTU4MzUwM30.XFCZc-w2pZURhLNiozjjEYq0rVuykttxmoZ9TjO32j8";
@@ -68,9 +68,10 @@ class _OrderScreenState extends State<OrderScreen> {
 
     print(list);
 
-    setState(() {
-      plist = plist;
-    });
+    if (mounted)
+      setState(() {
+        plist = plist;
+      });
   }
 
   @override

@@ -125,9 +125,10 @@ class _HomeopathyState extends State<Homeopathy> {
 
     print(list);
 
-    setState(() {
-      plist = plist;
-    });
+    if (mounted)
+      setState(() {
+        plist = plist;
+      });
   }
 
   @override
