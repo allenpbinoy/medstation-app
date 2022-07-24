@@ -16,9 +16,14 @@ class Ayurvedha extends StatefulWidget {
 }
 
 class _AyurvedhaState extends State<Ayurvedha> {
+  bool isLoading = false;
+  bool isOrderLoading = true;
   @override
   void initState() {
     super.initState();
+    setState(() {
+      isLoading = false;
+    });
     check();
   }
 
@@ -76,7 +81,23 @@ class _AyurvedhaState extends State<Ayurvedha> {
     var index = 0;
     // var snumber = data[index].toString();
 
-    var rb = response.body;
+    if (response.statusCode == 201) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Order Placed'),
+      ));
+      if (mounted)
+        setState(() {
+          isOrderLoading = true;
+        });
+    } else {
+      setState(() {
+        isOrderLoading = true;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Sorry, Something went wrong'),
+      ));
+    }
+    /* var rb = response.body;
     var list = json.decode(rb) as List;
     plist = list.map((e) => productDetails.fromJson(e)).toList();
 
@@ -84,7 +105,7 @@ class _AyurvedhaState extends State<Ayurvedha> {
 
     setState(() {
       plist = plist;
-    });
+    });*/
   }
 
   List<productDetails> plist = [];
@@ -119,6 +140,19 @@ class _AyurvedhaState extends State<Ayurvedha> {
     var index = 0;
     //  var snumber = data[index].toString();
 
+    if (response.statusCode == 200) {
+      if (mounted)
+        setState(() {
+          isLoading = true;
+        });
+    } else {
+      setState(() {
+        isLoading = true;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Sorry, Something went wrong'),
+      ));
+    }
     var rb = response.body;
     var list = json.decode(rb) as List;
     plist = list.map((e) => productDetails.fromJson(e)).toList();
@@ -133,144 +167,209 @@ class _AyurvedhaState extends State<Ayurvedha> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar11(),
       body: SingleChildScrollView(
-          child: Column(
-        children: [
-          Container(
-              child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: plist.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      child: Padding(
+        child: isLoading
+            ? Container(
+                child: isOrderLoading
+                    ? Container(
+                        child: Column(
+                          children: [
+                            Container(
+                                child: ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: plist.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            3,
+                                                        child: Image.network(
+                                                            plist[index]
+                                                                .imgUrl!)),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Container(
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            plist[index]
+                                                                .productname!,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 18),
+                                                          ),
+                                                          Text(
+                                                            plist[index].qty!,
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.grey,
+                                                                fontSize: 12),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            plist[index].price!,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 18,
+                                                                color: Colors
+                                                                    .grey[800]),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .location_on,
+                                                                color: Colors
+                                                                    .grey[800],
+                                                                size: 18,
+                                                              ),
+                                                              Text(
+                                                                plist[index]
+                                                                    .sAddress!,
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .grey,
+                                                                    fontSize:
+                                                                        12),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            plist[index]
+                                                                .status!,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 18,
+                                                                color: Colors
+                                                                    .green),
+                                                          ),
+                                                          TextButton(
+                                                              style: ButtonStyle(
+                                                                  backgroundColor:
+                                                                      MaterialStateProperty.all(HexColor(
+                                                                          "#003580",
+                                                                          1))),
+                                                              onPressed:
+                                                                  () async {
+                                                                setState(() {
+                                                                  isOrderLoading =
+                                                                      false;
+                                                                });
+                                                                order(
+                                                                  plist[index]
+                                                                      .productname
+                                                                      .toString(),
+                                                                  plist[index]
+                                                                      .qty
+                                                                      .toString(),
+                                                                  plist[index]
+                                                                      .price
+                                                                      .toString(),
+                                                                  plist[index]
+                                                                      .composition
+                                                                      .toString(),
+                                                                  plist[index]
+                                                                      .category
+                                                                      .toString(),
+                                                                  plist[index]
+                                                                      .imgUrl
+                                                                      .toString(),
+                                                                  plist[index]
+                                                                      .shopname
+                                                                      .toString(),
+                                                                  plist[index]
+                                                                      .sAddress
+                                                                      .toString(),
+                                                                  plist[index]
+                                                                      .whatsappNumber
+                                                                      .toString(),
+                                                                );
+                                                              },
+                                                              child: Text(
+                                                                "Order",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white),
+                                                              ))
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  height: .5,
+                                                  color: Colors.black26,
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }))
+                          ],
+                        ),
+                      )
+                    : Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                      width:
-                                          MediaQuery.of(context).size.width / 3,
-                                      child:
-                                          Image.network(plist[index].imgUrl!)),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          plist[index].productname!,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                        Text(
-                                          plist[index].qty!,
-                                          style: TextStyle(
-                                              color: Colors.grey, fontSize: 12),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          plist[index].price!,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                              color: Colors.grey[800]),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.location_on,
-                                              color: Colors.grey[800],
-                                              size: 18,
-                                            ),
-                                            Text(
-                                              plist[index].sAddress!,
-                                              style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 12),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          plist[index].status!,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                              color: Colors.green),
-                                        ),
-                                        TextButton(
-                                            style: ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStateProperty.all(
-                                                        HexColor(
-                                                            "#003580", 1))),
-                                            onPressed: () async {
-                                              order(
-                                                plist[index]
-                                                    .productname
-                                                    .toString(),
-                                                plist[index].qty.toString(),
-                                                plist[index].price.toString(),
-                                                plist[index]
-                                                    .composition
-                                                    .toString(),
-                                                plist[index]
-                                                    .category
-                                                    .toString(),
-                                                plist[index].imgUrl.toString(),
-                                                plist[index]
-                                                    .shopname
-                                                    .toString(),
-                                                plist[index]
-                                                    .sAddress
-                                                    .toString(),
-                                                plist[index]
-                                                    .whatsappNumber
-                                                    .toString(),
-                                              );
-                                            },
-                                            child: Text(
-                                              "Order",
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ))
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                height: .5,
-                                color: Colors.black26,
-                              )
-                            ],
+                          color: Colors.transparent,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: HexColor("#003580", 1),
+                            ),
                           ),
                         ),
                       ),
-                    );
-                  }))
-        ],
-      )),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  color: Colors.transparent,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: HexColor("#003580", 1),
+                    ),
+                  ),
+                ),
+              ),
+      ),
     );
   }
 }

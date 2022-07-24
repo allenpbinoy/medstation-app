@@ -16,14 +16,14 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   TextEditingController otpController = new TextEditingController();
-
+  bool isLoading = true;
   Future<void> send() async {
     // This will be sent as form data in the post requst
     String otp = otpController.text;
     print(otp);
     print("cutfufuggigiigiu");
     var map = new Map<String, dynamic>();
-    map['phoneNumber'] = '+917306487215';
+    map['phoneNumber'] = '+917994918838';
     map['code'] = otp;
 
     final response = await http.post(
@@ -52,6 +52,26 @@ class _OtpScreenState extends State<OtpScreen> {
     await storage.write(key: "token", value: "hbgyhgvyhg");
     String value = await storage.read(key: "token");
     print(value);*/
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('OTP verification successfull'),
+      ));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => CreateUserScreen()),
+      );
+      setState(() {
+        isLoading = true;
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Sorry, Something went wrong.'),
+      ));
+      setState(() {
+        isLoading = true;
+      });
+    }
   }
 
   @override
@@ -154,35 +174,36 @@ class _OtpScreenState extends State<OtpScreen> {
                             SizedBox(
                               height: 10,
                             ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 45,
-                              child: TextButton(
-                                onPressed: () {
-                                  send();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const CreateUserScreen()),
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Text(
-                                    "Verify",
-                                    style: TextStyle(
-                                      color: HexColor("#003580", 1),
+                            isLoading
+                                ? Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 45,
+                                    child: TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+                                        send();
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Text(
+                                          "Verify",
+                                          style: TextStyle(
+                                            color: HexColor("#003580", 1),
+                                          ),
+                                        ),
+                                      ),
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Colors.white)),
                                     ),
+                                  )
+                                : CircularProgressIndicator(
+                                    color: Colors.white,
                                   ),
-                                ),
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white)),
-                              ),
-                            )
                           ],
                         ),
                       )

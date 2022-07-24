@@ -19,6 +19,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
   TextEditingController watController = new TextEditingController();
   TextEditingController addrController = new TextEditingController();
   final storage = new FlutterSecureStorage();
+  bool isLoading = true;
 
   Future<void> send() async {
     var cname = nameController.text;
@@ -46,17 +47,30 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
         "Content-Type": "application/json",
         'Authorization': 'Bearer $token2',
       },
-      encoding: Encoding.getByName("utf-8"),
       body: jsonEncode(map),
     );
 
     print(response.body);
     var body = response.body;
-    if (body != null) {
-      Navigator.push(
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Account successfully created'),
+      ));
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => TabScreen()),
       );
+      setState(() {
+        isLoading = true;
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Something went wrong. Please try again'),
+      ));
+      setState(() {
+        isLoading = true;
+      });
     }
   }
 
@@ -220,31 +234,41 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
             SizedBox(
               height: MediaQuery.of(context).size.height / 3,
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 45,
-                child: TextButton(
-                  onPressed: () {
-                    send();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      "Save",
-                      style: TextStyle(
-                        color: HexColor("#003580", 1),
+            isLoading
+                ? Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 45,
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          send();
+                          send();
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            "Save",
+                            style: TextStyle(
+                              color: HexColor("#003580", 1),
+                            ),
+                          ),
+                        ),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.white,
+                        )),
                       ),
                     ),
+                  )
+                : Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
                   ),
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                    Colors.white,
-                  )),
-                ),
-              ),
-            )
           ],
         ),
       ),

@@ -22,10 +22,15 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
+  bool isLoading = false;
+  bool isOrderLoading = true;
   @override
   void initState() {
     super.initState();
     check();
+    setState(() {
+      isLoading = false;
+    });
   }
 
   List<orderDetails> plist = [];
@@ -68,6 +73,20 @@ class _OrderScreenState extends State<OrderScreen> {
 
     print(list);
 
+    if (response.statusCode == 200) {
+      if (mounted)
+        setState(() {
+          isLoading = true;
+        });
+    } else {
+      setState(() {
+        isLoading = true;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Sorry, Something went wrong'),
+      ));
+    }
+
     if (mounted)
       setState(() {
         plist = plist;
@@ -77,6 +96,7 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar2(),
       body: SingleChildScrollView(
         child: Column(
@@ -186,158 +206,170 @@ class _OrderScreenState extends State<OrderScreen> {
             SizedBox(
               height: 5,
             ),
-            ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: plist.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    child: Container(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 25, vertical: 10),
-                              child: Text("Normal Order Status",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: Colors.grey[800])),
-                            ),
-                            Column(children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 25, right: 10, top: 10),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                4,
-                                        child: Image.network(
-                                            plist[index].imgUrl!)),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Container(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+            isLoading
+                ? Container(
+                    child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: plist.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                              child: Container(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25, vertical: 10),
+                                    child: Text("Normal Order Status",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: Colors.grey[800])),
+                                  ),
+                                  Column(children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 25, right: 10, top: 10),
+                                      child: Row(
                                         children: [
-                                          Text(
-                                            plist[index].productname!,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                          Text(
-                                            plist[index].qty!,
-                                            style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 12),
-                                          ),
+                                          Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  4,
+                                              child: Image.network(
+                                                  plist[index].imgUrl!)),
                                           SizedBox(
-                                            height: 5,
+                                            width: 10,
                                           ),
-                                          Text(
-                                            plist[index].price!,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                                color: Colors.grey[800]),
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: Row(
+                                          Container(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Icon(
-                                                  Icons.location_on,
-                                                  color: Colors.grey[800],
-                                                  size: 18,
+                                                Text(
+                                                  plist[index].productname!,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 18),
                                                 ),
                                                 Text(
-                                                  plist[index].shopname! +
-                                                      " " +
-                                                      plist[index].sAddress!,
+                                                  plist[index].qty!,
                                                   style: TextStyle(
                                                       color: Colors.grey,
                                                       fontSize: 12),
                                                 ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 8,
-                                          ),
-                                          SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.phone_android,
-                                                  color: Colors.grey[800],
-                                                  size: 18,
+                                                SizedBox(
+                                                  height: 5,
                                                 ),
                                                 Text(
-                                                  plist[index].username!,
+                                                  plist[index].price!,
                                                   style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 12),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 18,
+                                                      color: Colors.grey[800]),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                SingleChildScrollView(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.location_on,
+                                                        color: Colors.grey[800],
+                                                        size: 18,
+                                                      ),
+                                                      Text(
+                                                        plist[index].shopname! +
+                                                            " " +
+                                                            plist[index]
+                                                                .sAddress!,
+                                                        style: TextStyle(
+                                                            color: Colors.grey,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 8,
+                                                ),
+                                                SingleChildScrollView(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.phone_android,
+                                                        color: Colors.grey[800],
+                                                        size: 18,
+                                                      ),
+                                                      Text(
+                                                        plist[index]
+                                                            .whatsappNumber!,
+                                                        style: TextStyle(
+                                                            color: Colors.green,
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              7,
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 8,
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "Status: ",
-                                                style: TextStyle(
-                                                    color: Colors.grey,
-                                                    fontSize: 12),
-                                              ),
-                                              Text(
-                                                plist[index].status!,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16,
-                                                    color: Colors.green),
-                                              ),
-                                              SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    7,
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 8,
-                                          ),
+                                          )
                                         ],
                                       ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                height: .5,
-                                color: Colors.black26,
-                              ),
-                            ]),
-                          ]),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                      height: .5,
+                                      color: Colors.black26,
+                                    ),
+                                  ]),
+                                ]),
+                          ));
+                        }),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: HexColor("#003580", 1),
+                        ),
+                      ),
                     ),
-                  );
-                })
+                  ),
           ],
         ),
       ),

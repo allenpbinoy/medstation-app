@@ -233,7 +233,7 @@ class AppBar10 extends StatelessWidget with PreferredSizeWidget {
         brightness: Brightness.dark,
         backgroundColor: HexColor("#003580", 1),
         elevation: 1,
-        title: Text("Ayurvedha"),
+        title: Text("Homeopathy"),
         leading: Icon(
           Icons.ac_unit,
           color: Colors.transparent,
@@ -256,13 +256,13 @@ class AppBar11 extends StatelessWidget with PreferredSizeWidget {
         brightness: Brightness.dark,
         backgroundColor: HexColor("#003580", 1),
         elevation: 1,
-        title: Text("Homeopathy"),
+        title: Text("Ayurvedha"),
         leading: Icon(
           Icons.ac_unit,
           color: Colors.transparent,
           size: .1,
         ),
-        titleSpacing: 60);
+        titleSpacing: 75);
   }
 }
 
@@ -279,13 +279,13 @@ class AppBar12 extends StatelessWidget with PreferredSizeWidget {
         brightness: Brightness.dark,
         backgroundColor: HexColor("#003580", 1),
         elevation: 1,
-        title: Text("Skin Care"),
+        title: Text(" Skin Care"),
         leading: Icon(
           Icons.ac_unit,
           color: Colors.transparent,
           size: .1,
         ),
-        titleSpacing: 60);
+        titleSpacing: 75);
   }
 }
 
