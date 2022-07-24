@@ -87,7 +87,11 @@ class _PreOrderViewState extends State<PreOrderView> {
                             children: [
                               Container(
                                   width: MediaQuery.of(context).size.width / 4,
-                                  child: Image.network(plist[index].imgUrl!)),
+                                  child: Image.network(
+                                    plist[index].imgUrl!,
+                                    width:
+                                        MediaQuery.of(context).size.width / 4,
+                                  )),
                               SizedBox(
                                 width: 10,
                               ),
@@ -132,7 +136,7 @@ class _PreOrderViewState extends State<PreOrderView> {
                                               color: Colors.grey, fontSize: 12),
                                         ),
                                         Text(
-                                          plist[index].username!,
+                                          plist[index].whatsappNumber!,
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16,

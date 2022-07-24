@@ -88,8 +88,8 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
     map['qty'] = "nil";
     map['price'] = "nil";
     map['composition'] = "nil";
-    map['category'] = imageUrl;
-    map['imgUrl'] = "nil";
+    map['category'] = 'nil';
+    map['imgUrl'] = imageUrl;
     map['sUsername'] = "user";
     map['shopname'] = shopname;
     map['sAddress'] = "Saddress";
